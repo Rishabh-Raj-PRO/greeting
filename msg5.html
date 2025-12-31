@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy New Year 2026 Isha ✨</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600;800&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        overflow: hidden;
+        background: radial-gradient(circle at center, #1a0b2e 0%, #000 100%);
+        font-family: 'Poppins', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* 💎 Glass Card Container (380x580) */
+    .card {
+        position: relative;
+        width: 380px;
+        height: 580px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(12px);
+        border-radius: 30px;
+        box-shadow: 0 0 40px rgba(0,0,0,0.6);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 50px;
+        z-index: 10;
+        text-align: center;
+    }
+
+    .title {
+        color: #fff;
+        font-family: 'Playfair Display', serif;
+        font-size: 44px; 
+        text-shadow: 0 0 15px rgba(255,255,255,0.6);
+        margin-bottom: 5px;
+    }
+    
+    .subtitle {
+        color: #bfaee3;
+        font-size: 14px;
+        letter-spacing: 3px;
+        margin-bottom: 50px;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    /* 📩 Envelope Wrapper (318x180) */
+    .envelope-wrapper {
+        position: relative;
+        width: 318px;
+        height: 180px;
+        cursor: pointer;
+        margin: 0 auto;
+    }
+
+    /* 1. Back Layer */
+    .envelope-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #3e2a5e;
+        border-radius: 10px;
+        z-index: 1;
+    }
+
+    /* 2. The Letter (PERFECTLY SIZED) */
+    .letter {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        
+        /* HIDDEN STATE */
+        width: 260px;       
+        height: 100px; 
+        opacity: 0; 
+        
+        background: #fff;
+        border-radius: 8px;
+        padding: 15px 20px; 
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        
+        /* Flex Layout to space content evenly */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+
+        z-index: 2; 
+        transition: 
+            bottom 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), 
+            height 0.6s ease, 
+            width 0.6s ease,
+            opacity 0.2s ease;
+    }
+
+    /* Header */
+    .letter h2 {
+        font-family: 'Playfair Display', serif;
+        color: #ff4d6d;
+        font-size: 18px; 
+        margin: 0;
+        line-height: 1.2;
+    }
+
+    .letter h3 {
+        font-family: 'Playfair Display', serif;
+        color: #444;
+        font-size: 16px; 
+        margin: 2px 0 5px 0;
+        font-weight: 600;
+    }
+
+    /* Poem Body - Size 14px */
+    .letter p {
+        font-size: 14px;
+        color: #444;
+        line-height: 1.5; /* Tightened slightly to fit perfectly */
+        margin: 0;
+        font-weight: 500;
+    }
+
+    /* Bold Footer */
+    .letter-footer {
+        font-size: 12px;
+        font-weight: 800;
+        color: #5c4b91;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-top: 1px solid #f0e6ff;
+        padding-top: 8px;
+        margin-top: 8px;
+        width: 100%;
+    }
+
+    /* 3. The Front Pocket */
+    .pocket {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #4a3b78;
+        border-radius: 0 0 10px 10px;
+        clip-path: polygon(0 0, 50% 45%, 100% 0, 100% 100%, 0 100%);
+        z-index: 3;
+        pointer-events: none;
+    }
+
+    /* 4. The Flap */
+    .flap {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #5c4b91;
+        clip-path: polygon(0 0, 100% 0, 50% 50%);
+        transform-origin: top;
+        transition: transform 0.6s ease, z-index 0.1s linear 0.3s;
+        z-index: 4;
+        border-radius: 10px 10px 0 0;
+    }
+
+    /* ✨ ANIMATION LOGIC */
+    .envelope-wrapper.open .flap {
+        transform: rotateX(180deg);
+        z-index: 1;
+        transition-delay: 0s;
+    }
+
+    .envelope-wrapper.open .letter {
+        bottom: 60px; 
+        /* ✅ Height 260px fits text without going off screen */
+        height: 260px; 
+        /* ✅ Width 270px is smaller than 318px envelope -> Looks correct */
+        width: 270px; 
+        opacity: 1; 
+        z-index: 5; 
+        transition-delay: 0.3s;
+    }
+
+    /* Tap Text */
+    .tap-hint {
+        margin-top: 60px;
+        color: rgba(255,255,255,0.7);
+        font-size: 14px;
+        letter-spacing: 1px;
+        animation: pulse 2s infinite;
+        font-weight: 400;
+    }
+    @keyframes pulse { 0%{opacity:0.4} 50%{opacity:1} 100%{opacity:0.4} }
+
+    /* Particles */
+    .particle {
+        position: absolute;
+        pointer-events: none;
+        animation: float 7s linear infinite;
+        opacity: 0;
+    }
+    @keyframes float {
+        0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+        20% { opacity: 1; }
+        100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    }
+</style>
+</head>
+<body>
+
+<script>
+    /* Particle Logic */
+    const icons = ['✨','🌸','💖','💫','❄️'];
+    for(let i=0; i<25; i++){
+        let p = document.createElement('div');
+        p.className = 'particle';
+        p.innerHTML = icons[Math.floor(Math.random()*icons.length)];
+        p.style.left = Math.random()*100 + 'vw';
+        p.style.fontSize = (10+Math.random()*20)+'px';
+        p.style.animationDelay = Math.random()*5 + 's';
+        document.body.appendChild(p);
+    }
+
+    /* Open Envelope Logic & Text Change */
+    function openEnvelope() {
+        const wrapper = document.querySelector('.envelope-wrapper');
+        const hint = document.querySelector('.tap-hint');
+        
+        wrapper.classList.toggle('open');
+        
+        if(wrapper.classList.contains('open')) {
+            hint.innerHTML = "Wishing you the best! ✨";
+        } else {
+            hint.innerHTML = "Tap the envelope to open 💌";
+        }
+    }
+</script>
+
+<div class="card">
+    <div class="title">For Isha ✨</div>
+    <div class="subtitle">HAPPY NEW YEAR</div>
+
+    <div class="envelope-wrapper" onclick="openEnvelope()">
+        <div class="envelope-back"></div>
+        
+        <div class="letter">
+            <div>
+                <h2>Happy New Year 💖</h2>
+                <h3>Dear Isha,</h3>
+                <p>
+                    May this new year bring you<br>
+                    peace, happiness, success,<br>
+                    and countless moments<br>
+                    that make you smile ✨<br><br>
+                    Some wishes are quiet,<br>
+                    but they come straight<br>
+                    from the heart 💫
+                </p>
+            </div>
+            <div class="letter-footer">Keep Shining ✨</div>
+        </div>
+
+        <div class="pocket"></div>
+        <div class="flap"></div>
+    </div>
+
+    <div class="tap-hint">Tap the envelope to open 💌</div>
+</div>
+
+</body>
+</html>
